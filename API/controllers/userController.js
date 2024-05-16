@@ -54,3 +54,12 @@ export const deleteUser = async (req, reply) => {
     reply.code(500).send({ error: error.message });
   }
 };
+
+export const getUsers = async (req, reply) => {
+  try {
+    const users = await UserService.getUsers();
+    reply.code(200).send(users);
+  } catch (error) {
+    reply.code(500).send({ error: error.message });
+  }
+};

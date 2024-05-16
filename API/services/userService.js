@@ -82,6 +82,15 @@ const UserService = {
       throw new Error(`Failed to delete user: ${error.message}`);
     }
   },
+
+  async getUsers() {
+    try {
+      const users = await User.find();
+      return users;
+    } catch (error) {
+      throw new Error(`Failed to get users: ${error.message}`);
+    }
+  },
 };
 
 export default UserService;

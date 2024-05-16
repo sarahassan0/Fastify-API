@@ -4,6 +4,7 @@ import {
   getUserById,
   updateUser,
   deleteUser,
+  getUsers,
 } from "../controllers/userController.js";
 import {
   signupUserOpts,
@@ -11,6 +12,7 @@ import {
   getUserOpts,
   updateUserOpts,
   deleteUserOpts,
+  getUsersOpts,
 } from "../options/userRouteOptions.js";
 import userAuth from "../middlewares/userAuth.js"; 
 
@@ -38,6 +40,8 @@ const userRoutes = async (fastify, options, done) => {
     handler: deleteUser,
   });
 
+  // Get all users
+  fastify.get("/users", { ...getUsersOpts, handler: getUsers });
   done();
 };
 

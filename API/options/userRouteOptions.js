@@ -3,7 +3,6 @@ const email = { type: "string", format: "email" };
 const phone = { type: "string", minLength: 11, maxLength: 15 };
 const password = { type: "string", minLength: 4 };
 
-
 const User = {
   type: "object",
   properties: {
@@ -45,7 +44,6 @@ const signupUserOpts = {
     },
   },
 };
-
 
 const loginUserOpts = {
   schema: {
@@ -145,11 +143,22 @@ const deleteUserOpts = {
           message: { type: "string" },
         },
       },
-      404: {
+      500: {
         type: "object",
         properties: {
-          message: { type: "string", example: "User not found" },
+          error: { type: "string" },
         },
+      },
+    },
+  },
+};
+
+const getUsersOpts = {
+  schema: {
+    response: {
+      200: {
+        type: "array",
+        items: User,
       },
       500: {
         type: "object",
@@ -161,5 +170,11 @@ const deleteUserOpts = {
   },
 };
 
-
-export { signupUserOpts, loginUserOpts, getUserOpts, updateUserOpts, deleteUserOpts};
+export {
+  signupUserOpts,
+  loginUserOpts,
+  getUserOpts,
+  updateUserOpts,
+  deleteUserOpts,
+  getUsersOpts,
+};
