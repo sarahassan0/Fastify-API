@@ -14,7 +14,7 @@ import {
   deleteUserOpts,
   getUsersOpts,
 } from "../options/userRouteOptions.js";
-import userAuth from "../middlewares/userAuth.js"; 
+import userAuthAPI from "../../middlewares/userAuthAPI.js";
 
 const userRoutes = async (fastify, options, done) => {
   // Create a new user
@@ -29,14 +29,14 @@ const userRoutes = async (fastify, options, done) => {
   // Update user by ID
   fastify.put("/users/:userId", {
     ...updateUserOpts,
-    preHandler: userAuth,
+    preHandler: userAuthAPI,
     handler: updateUser,
   });
 
   // Delete user by ID
   fastify.delete("/users/:userId", {
     ...deleteUserOpts,
-    preHandler: userAuth,
+    preHandler: userAuthAPI,
     handler: deleteUser,
   });
 

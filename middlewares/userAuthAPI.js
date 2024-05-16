@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import User from "../API/models/User.js";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const userAuth = async (req, reply, done) => {
+const userAuthAPI = async (req, reply, done) => {
   try {
     const token = req.headers.authorization?.replace("Bearer ", "");
     if (!token) {
@@ -13,19 +13,21 @@ const userAuth = async (req, reply, done) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decoded.userId;
-    const user = await User.findById(userId);
-    
-    if (!user) {
+    const userByToken = await User.findById(decoded.userId);
+
+    if (!userByToken) {
       reply.code(401).send({ error: "Unauthorized: Invalid token" });
       return;
     }
 
-    req.user = user;
+    if (!userById || userByToken._id.toString() !== req.params.id) {
+      reply.code(401).send({ error: "Unauthorized: Unauthorized User " });
+      return;
+    }
     done();
   } catch (error) {
     reply.code(401).send({ error: "Unauthorized: Invalid token" });
   }
 };
 
-export default userAuth;
+export default userAuthAPI;
