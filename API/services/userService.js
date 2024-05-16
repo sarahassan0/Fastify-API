@@ -17,6 +17,39 @@ const UserService = {
       throw new Error(`Failed to create user: ${error.message}`);
     }
   },
+
+  async loginUser(email, password) {
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new Error("Invalid email or password");
+      }
+
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        throw new Error("Invalid email or password");
+      }
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      return { user, token };
+    } catch (error) {
+      throw new Error(`Login failed: ${error.message}`);
+    }
+  },
+
+  async getUserById(userId) {
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new Error("User not found");
+      }
+      return user;
+    } catch (error) {
+      throw new Error(`Failed to get user: ${error.message}`);
+    }
+  },
 };
 
 export default UserService;
