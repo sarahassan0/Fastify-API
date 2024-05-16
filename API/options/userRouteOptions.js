@@ -107,6 +107,12 @@ const updateUserOpts = {
         userId: { type: "string" },
       },
     },
+    headers: {
+      type: "object",
+      properties: {
+        Authorization: { type: "string" },
+      },
+    },
     body: {
       type: "object",
       properties: {
@@ -134,6 +140,12 @@ const deleteUserOpts = {
       type: "object",
       properties: {
         userId: { type: "string" },
+      },
+    },
+    headers: {
+      type: "object",
+      properties: {
+        Authorization: { type: "string" },
       },
     },
     response: {
