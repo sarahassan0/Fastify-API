@@ -21,6 +21,7 @@
   "homepage": "https://github.com/sarahassan0/Fastify-API#readme",
   "dependencies": {
     "@fastify/cors": "^9.0.1",
+    "@fastify/swagger": "^7.0.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
