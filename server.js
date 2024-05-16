@@ -1,4 +1,4 @@
-import app from "./API/app.js";
+import app from "./WebSocket/socket.js";
 
 const startServer = async () => {
   try {
