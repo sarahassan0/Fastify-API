@@ -101,4 +101,65 @@ const getUserOpts = {
   },
 };
 
-export { signupUserOpts, loginUserOpts, getUserOpts};
+const updateUserOpts = {
+  schema: {
+    params: {
+      type: "object",
+      properties: {
+        userId: { type: "string" },
+      },
+    },
+    body: {
+      type: "object",
+      properties: {
+        name,
+        email,
+        password,
+        phone,
+      },
+    },
+    response: {
+      200: User,
+      500: {
+        type: "object",
+        properties: {
+          error: { type: "string" },
+        },
+      },
+    },
+  },
+};
+
+const deleteUserOpts = {
+  schema: {
+    params: {
+      type: "object",
+      properties: {
+        userId: { type: "string" },
+      },
+    },
+    response: {
+      200: {
+        type: "object",
+        properties: {
+          message: { type: "string" },
+        },
+      },
+      404: {
+        type: "object",
+        properties: {
+          message: { type: "string", example: "User not found" },
+        },
+      },
+      500: {
+        type: "object",
+        properties: {
+          error: { type: "string" },
+        },
+      },
+    },
+  },
+};
+
+
+export { signupUserOpts, loginUserOpts, getUserOpts, updateUserOpts, deleteUserOpts};

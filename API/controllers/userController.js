@@ -33,3 +33,24 @@ export const getUserById = async (req, reply) => {
     reply.code(500).send({ error: error.message });
   }
 };
+
+export const updateUser = async (req, reply) => {
+  try {
+    const { userId } = req.params;
+    const { body } = req;
+    const updatedUser = await UserService.updateUser(userId, body);
+    reply.code(200).send(updatedUser);
+  } catch (error) {
+    reply.code(500).send({ error: error.message });
+  }
+};
+
+export const deleteUser = async (req, reply) => {
+  try {
+    const { userId } = req.params;
+    await UserService.deleteUser(userId);
+    reply.code(200).send({ message: "User deleted" });
+  } catch (error) {
+    reply.code(500).send({ error: error.message });
+  }
+};

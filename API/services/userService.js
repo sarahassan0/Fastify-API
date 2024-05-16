@@ -50,6 +50,38 @@ const UserService = {
       throw new Error(`Failed to get user: ${error.message}`);
     }
   },
+
+  async updateUser(userId, userData) {
+    try {
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      if (userData.name) user.name = userData.name;
+      if (userData.email) user.email = userData.email;
+      if (userData.password) user.password = userData.password;
+      if (userData.phone) user.phone = userData.phone;
+
+      const updatedUser = await user.save({ runValidators: true });
+
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Failed to update user: ${error.message}`);
+    }
+  },
+
+  async deleteUser(userId) {
+    try {
+      const user = await User.findByIdAndDelete(userId);
+      if (!user) {
+        throw new Error("User not found");
+      }
+    } catch (error) {
+      throw new Error(`Failed to delete user: ${error.message}`);
+    }
+  },
 };
 
 export default UserService;
